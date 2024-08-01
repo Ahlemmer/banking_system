@@ -2,30 +2,25 @@ import SideBar from '@/components/sideBar';
 import MobileNav from '@/components/mobile-nav-bar';
 import Image from 'next/image';
 import RightSidebar from '@/components/right-side-bar';
+import { getLoggedInUser } from '@/lib/actions/user.actions';
+import { redirect } from 'next/navigation';
 
-export default function RootLayout({
+
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const LoggedIn=await getLoggedInUser()
+
+
+  if (!LoggedIn) redirect('/sign-in')
+  
   return (
     <main className="flex h-screen w-full font-inter">
       <SideBar
-        user={{
-          $id: '1',
-          address1: 'gg',
-          city: 'hhh',
-          dateOfBirth: 'hhh',
-          dwollaCustomerId: 'gg',
-          dwollaCustomerUrl: 'hhh',
-          email: 'nnnn',
-          firstName: 'ggg',
-          lastName: 'hh',
-          postalCode: ':1',
-          ssn: '55',
-          state: 'ff',
-          userId: 'gg',
-        }}
+        user={LoggedIn}
       />
 
       <div className="flex size-full flex-col">
@@ -33,45 +28,13 @@ export default function RootLayout({
           <Image src="/icons/logo.svg" width={30} height={30} alt="logo" />
           <div>
             <MobileNav
-              user={{
-                $id: '1',
-                address1: 'gg',
-                city: 'hhh',
-                dateOfBirth: 'hhh',
-                dwollaCustomerId: 'gg',
-                dwollaCustomerUrl: 'hhh',
-                email: 'nnnn',
-                firstName: 'ggg',
-                lastName: 'hh',
-                postalCode: ':1',
-                ssn: '55',
-                state: 'ff',
-                userId: 'gg',
-              }}
+              user={LoggedIn}
             />
           </div>
         </div>
         {children}
       </div>
-      <RightSidebar
-        banks={[{currentBalance:12.34},{currentBalance:123.7}]}
-        transactions={[]}
-        user={{
-          $id: '1',
-          address1: 'gg',
-          city: 'hhh',
-          dateOfBirth: 'hhh',
-          dwollaCustomerId: 'gg',
-          dwollaCustomerUrl: 'hhh',
-          email: 'nnnn',
-          firstName: 'ggg',
-          lastName: 'hh',
-          postalCode: ':1',
-          ssn: '55',
-          state: 'ff',
-          userId: 'gg',
-        }}
-      />
+   
     </main>
   );
 }
