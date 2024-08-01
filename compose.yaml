@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 
 services:
   frontend:
@@ -7,16 +7,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
-    develop:
-      watch:
-        - path: ./package.json
-          action: rebuild
-        - path: ./next.config.js
-          action: rebuild
-        - path: ./package-lock.json
-          action: rebuild
-        - path: .
-          target: /app
-          action: sync
-volumes:
-  tasked:
+    environment:
+      APPWRITE_ENDPOINT: ${APPWRITE_ENDPOINT}
+      APPWRITE_PROJECT_ID: ${APPWRITE_PROJECT_ID}
+      APPWRITE_KEY: ${APPWRITE_KEY}
+    volumes:
+      - .:/app
+      - /app/node_modules
