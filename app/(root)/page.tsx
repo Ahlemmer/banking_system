@@ -27,7 +27,7 @@ async function Home() {
      
       </div>
       <RightSidebar
-        banks={[{currentBalance:12.34},{currentBalance:123.7}]}
+        banks={[]}
         transactions={[]}
         user={LoggedIn}
       />
