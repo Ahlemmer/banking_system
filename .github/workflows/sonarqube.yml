@@ -51,8 +51,8 @@ jobs:
           sonarsource/sonar-scanner-cli \
           sonar-scanner -X
 
-    - name: Stop SonarQube Docker container
-      run: docker stop sonarqube && docker rm sonarqube
-
     - name: Check SonarQube logs
       run: docker logs sonarqube
+
+    - name: Stop SonarQube Docker container
+      run: docker stop sonarqube && docker rm sonarqube
