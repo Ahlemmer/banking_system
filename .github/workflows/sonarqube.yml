@@ -37,8 +37,10 @@ jobs:
           -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true \
           sonarqube:community
         
-        # Wait for SonarQube to be fully started
-        until curl -s http://localhost:9000/api/system/status | grep -q "UP"; do sleep 10; done
+        # Improved waiting logic for SonarQube to be ready
+        until curl -s http://localhost:9000/api/system/status | grep -q "UP"; do
+          echo "Waiting for SonarQube to start..."; sleep 20;
+        done
 
     - name: Run SonarQube analysis
       run: |
@@ -50,5 +52,7 @@ jobs:
           sonar-scanner -X
 
     - name: Stop SonarQube Docker container
-      run: |
-        docker stop sonarqube && docker rm sonarqube
+      run: docker stop sonarqube && docker rm sonarqube
+
+    - name: Check SonarQube logs
+      run: docker logs sonarqube
