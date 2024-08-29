@@ -38,9 +38,9 @@ jobs:
           sonarqube:latest
         
         # Improved waiting logic for SonarQube to be ready
-        until curl -s http://localhost:9000/api/system/status | grep -q "UP"; do
-          echo "Waiting for SonarQube to start..."; sleep 30;
-        done
+        # until curl -s http://localhost:9000/api/system/status | grep -q "UP"; do
+        #   echo "Waiting for SonarQube to start..."; sleep 30;
+        # done
 
     - name: Run SonarQube analysis
       run: |
