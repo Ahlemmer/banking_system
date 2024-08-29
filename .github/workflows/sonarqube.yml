@@ -51,3 +51,6 @@ jobs:
 
     - name: Stop SonarQube Docker container
       run: docker stop sonarqube && docker rm sonarqube
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN}}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL}}
