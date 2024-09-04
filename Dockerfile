@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install && npm install @sentry/nextjs
+RUN npm install --ignore-scripts && npm install @sentry/nextjs
 
 COPY  . .
 
